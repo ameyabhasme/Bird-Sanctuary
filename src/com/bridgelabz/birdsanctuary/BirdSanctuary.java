@@ -12,7 +12,8 @@ public class BirdSanctuary {
 		BirdSanctuaryManager birdSanctuaryManager = BirdSanctuaryManager.getInstance();
 
 		while (exit != 0) {
-			System.out.println("1) Add Bird \n2) Remove Bird \n3) Update Bird" + "\n4) Print All Birds \n5) Print Flyable Bird"
+			System.out.println(
+					"1) Add Bird \n2) Remove Bird \n3) Update Bird" + "\n4) Print All Birds \n5) Print Flyable Bird"
 							+ "\n6) Print Swimmable Bird \n7) Print Eatable Bird \n0)Exit");
 			System.out.print("Select from Menu: ");
 			int choice = SC.nextInt();
@@ -22,52 +23,8 @@ public class BirdSanctuary {
 				exit = 0;
 				break;
 			case 1:
-				Bird bird = new Bird();
-				System.out.print("Enter Bird name: ");
-				bird.name = SC.next();
-
-				System.out.print("Enter Bird id: ");
-				bird.id = SC.next();
-
-				System.out.print("1) White\n2) Black\n3) Green\n4) Grey\n5) Yellow\n6) Blue\n7) Red\n8) Violet");
-				System.out.print("Enter Bird color option: ");
-				int option = SC.nextInt();
-				switch (option) {
-				case 1:
-					bird.color = Color.WHITE;
-					break;
-				case 2:
-					bird.color = Color.BLACK;
-					break;
-				case 3:
-					bird.color = Color.GREEN;
-					break;
-				case 4:
-					bird.color = Color.GREY;
-					break;
-				case 5:
-					bird.color = Color.YELLOW;
-					break;
-				case 6:
-					bird.color = Color.BLUE;
-					break;
-				case 7:
-					bird.color = Color.RED;
-					break;
-				case 8:
-					bird.color = Color.VIOLET;
-					break;
-				default:
-					System.out.println("Enter from the options!!");
-				}
-
-				System.out.print("Can the bird fly?(true or false): ");
-				bird.isFlyable = SC.nextBoolean();
-
-				System.out.print("Can the bird swim?(true or false): ");
-				bird.isSwimmable = SC.nextBoolean();
-
-				birdSanctuaryManager.add(bird);
+//				addBird();
+				birdSanctuaryManager.addDummyBirds(); // needs to be deleted in production
 				break;
 
 			case 2:
@@ -79,6 +36,13 @@ public class BirdSanctuary {
 
 			case 3:
 				System.out.print("Enter the Bird ID: ");
+				String updateId = SC.next();
+				Bird editBird = birdSanctuaryManager.getBird(updateId);
+				if(editBird == null)
+					System.out.println("BirdList is empty!");
+				else
+					birdSanctuaryManager.edit(editBird);
+						
 				break;
 
 			case 4:
@@ -99,30 +63,66 @@ public class BirdSanctuary {
 
 			default:
 				System.out.println("Enter option from the Menu!");
-
 			}
 		}
+	}
 
+	public Bird addBird() {
+
+		BirdSanctuaryManager birdSanctuaryManager = BirdSanctuaryManager.getInstance();
+
+		Bird bird = new Bird();
+		System.out.print("Enter Bird name: ");
+		bird.name = SC.next();
+
+		System.out.print("Enter Bird id: ");
+		bird.id = SC.next();
+
+		System.out.print("1) White\n2) Black\n3) Green\n4) Grey\n5) Yellow\n6) Blue\n7) Red\n8) Violet");
+		System.out.print("Enter Bird color: ");
+		int option = SC.nextInt();
+		switch (option) {
+		case 1:
+			bird.color = Color.WHITE;
+			break;
+		case 2:
+			bird.color = Color.BLACK;
+			break;
+		case 3:
+			bird.color = Color.GREEN;
+			break;
+		case 4:
+			bird.color = Color.GREY;
+			break;
+		case 5:
+			bird.color = Color.YELLOW;
+			break;
+		case 6:
+			bird.color = Color.BLUE;
+			break;
+		case 7:
+			bird.color = Color.RED;
+			break;
+		case 8:
+			bird.color = Color.VIOLET;
+			break;
+		default:
+			System.out.println("Enter from the options!!");
+		}
+
+		System.out.print("Can the bird fly?(true or false): ");
+		bird.isFlyable = SC.nextBoolean();
+
+		System.out.print("Can the bird swim?(true or false): ");
+		bird.isSwimmable = SC.nextBoolean();
+
+		birdSanctuaryManager.add(bird);
+		return bird;
 	}
 
 	public static void main(String[] args) {
 		BirdSanctuary birdSanctuary = new BirdSanctuary();
 
-//		Duck duck = new Duck();
-//		duck.id = "Duc";
-//		Parrot parrot = new Parrot();
-//		parrot.id = "Par";
-//		Penguin penguin = new Penguin();
-//		penguin.id = "Pen";
-//		Pigeon pigeon = new Pigeon();
-//		pigeon.id = "Pig";
-//
-//		birdSanctuaryManager.add(duck);
-//		birdSanctuaryManager.add(parrot);
-//		birdSanctuaryManager.add(penguin);
-//		birdSanctuaryManager.add(pigeon);
-
 		birdSanctuary.showMenu();
-
 	}
 }
