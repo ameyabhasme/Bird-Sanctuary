@@ -47,5 +47,4 @@ public class Bird {
 		return "Bird [id= " + id + ", name= " + name + ", color= " + color + ", isFlyable= " + isFlyable
 				+ ", isSwimmable= " + isSwimmable + "]";
 	}
-
 }

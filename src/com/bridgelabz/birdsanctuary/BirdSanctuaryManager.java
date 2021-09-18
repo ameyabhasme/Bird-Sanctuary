@@ -1,6 +1,7 @@
 package com.bridgelabz.birdsanctuary;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -54,6 +55,14 @@ public class BirdSanctuaryManager {
 		bird3.isFlyable = true;
 		bird3.isSwimmable = true;
 		birdlist.add(bird3);
+
+		Bird bird4 = new Bird();
+		bird4.name = "Penguin";
+		bird4.id = "Pen1";
+		bird4.color = Color.BLACK;
+		bird4.isFlyable = false;
+		bird4.isSwimmable = true;
+		birdlist.add(bird4);
 
 	}
 
@@ -118,12 +127,14 @@ public class BirdSanctuaryManager {
 				}
 				break;
 			case 4:
-				System.out.println("Can the bird fly?(true or false): ");
-				updateBird.isFlyable = SC.nextBoolean();
+//				System.out.println("Can the bird fly?(true or false): ");
+//				updateBird.isFlyable = SC.nextBoolean();
+				flyable(updateBird);
 				break;
 			case 5:
-				System.out.println("Can the bird swim?(true or false): ");
-				updateBird.isSwimmable = SC.nextBoolean();
+//				System.out.println("Can the bird swim?(true or false): ");
+//				updateBird.isSwimmable = SC.nextBoolean();
+				swimmable(updateBird);
 				break;
 			default:
 				break;
@@ -131,41 +142,86 @@ public class BirdSanctuaryManager {
 		}
 		return null;
 	}
+	
+	   public void flyable(Bird bird) {
+	        boolean flag = true;
+	        while (flag) {
+	            try {
+	                System.out.println("Can the bird fly?(true or false): ");
+	                bird.isFlyable = inputUser();
+	                flag = false;
+	            } catch (Exception e) {
+	                System.out.println("Invalid Input");
+	            }
+	        }
+	    }
+
+	    public void swimmable(Bird bird) {
+	        boolean flag = true;
+	        while (flag) {
+	            try {
+	                System.out.println("Can the bird swim?(true or false): ");
+	                bird.isSwimmable = inputUser();
+	                flag = false;
+	            } catch (Exception e) {
+	                System.out.println("Invalid Input");
+	            }
+	        }
+	    }
+
+	    public boolean inputUser() {
+	        Scanner sc = new Scanner(System.in);
+	        return sc.nextBoolean();
+	    }
+
 
 	public Bird getBird(String id) {
-		for (Bird bird : birdlist) {
-			if (bird.id.equals(id)) {
-				return bird;
-			}
-		}
-		return null;
+//		for (Bird bird : birdlist) {
+//			if (bird.id.equals(id)) {
+//				return bird;
+//			}
+//		}
+		return birdlist.stream().filter(bird -> bird.id.equals(id)).findFirst().orElse(null);
+//		return birdlist.stream().filter(bird -> bird.id.equals(id)).anyMatch(bird).orElse(null);
+//		return null;
 	}
 
 	public void printFlyable() {
-		for (Bird bird : birdlist) {
-			if (bird.isFlyable) {
-				bird.fly();
-			}
-		}
+//		for (Bird bird : birdlist) {
+//			if (bird.isFlyable) {
+//				bird.fly();
+//			}
+//		}
+		birdlist.stream().filter(bird -> bird.isFlyable).forEach(bird -> bird.fly());
 	}
 
 	public void printSwimmable() {
-		for (Bird bird : birdlist) {
-			if (bird.isSwimmable) {
-				bird.swim();
-			}
-		}
+//		for (Bird bird : birdlist) {
+//			if (bird.isSwimmable) {
+//				bird.swim();
+//			}
+//		}
+		birdlist.stream().filter(bird -> bird.isSwimmable).forEach(bird -> bird.swim());
 	}
 
 	public void printEatable() {
-		for (Bird bird : birdlist) {
-			bird.eat();
-		}
+//		for (Bird bird : birdlist) {
+//			bird.eat();
+//		}
+		birdlist.stream().forEach(bird -> bird.eat());
 	}
 
 	public void print() {
-		for (Bird bird : birdlist) {
-			System.out.println(bird);
-		}
+//		for (Bird bird : birdlist) {
+//			System.out.println(bird);
+//		}
+		birdlist.stream().forEach(System.out::println);
+	}
+
+	public void dummyGetBirdNameList() {
+		birdlist.stream().map(bird -> bird.name).forEach(System.out::println);
+		System.out.println(birdlist.stream().count());
+//		List<String> myBirdList = birdlist.stream().map(bird -> bird.name).collect(Collectors.toList());
+//		System.out.println(myBirdList);
 	}
 }
